@@ -44,6 +44,87 @@ public class Controller {
     }
 
 
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Employee> getEmployeeById(
+            @PathVariable long id
+    ) {
+        Employee employee = employeeService.getEmployeeById(id)
+                .orElseThrow(()-> new RuntimeException("Employee Not Found "));
+
+        return ResponseEntity.status(HttpStatus.FOUND).body(employee);
+    }
+
+    @GetMapping("/employees/search")
+    public ResponseEntity<?> searchEmployees(@RequestParam String name){
+//        User the service method to search
+        List<Employee> employees =
+                employeeService.searchEmployeesByName(name);
+
+        if (employees.isEmpty()) {
+            return createResponse(
+                    HttpStatus.NO_CONTENT,
+                    "No Employees Found"
+            );
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(employees);
+    }
+
+    @GetMapping("/employees/department/{name}")
+    public ResponseEntity<?> getEmployeesByDepartment(@PathVariable String name) {
+      try {
+          List<Employee> employees = employeeService
+                  .getEmployeesByDepartment(name);
+          if (employees.isEmpty()) {
+              return createResponse(HttpStatus.NO_CONTENT, "No employees found in this department.");
+          }
+          return ResponseEntity.ok(employees);
+      } catch (RuntimeException e) {
+          return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
+      }
+    }
+
+
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable long id, @RequestBody Employee updatedEmployee) {
+        try {
+            Employee updated = employeeService.updateEmployee(id, updatedEmployee);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
+        try {
+            employeeService.deleteEmployee(id);
+            return createResponse(HttpStatus.NO_CONTENT, "Employee deleted successfully.");
+        } catch (RuntimeException e) {
+            return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Utility method to create a Message response
     private ResponseEntity<Message> createResponse(HttpStatus status, String messageText) {
