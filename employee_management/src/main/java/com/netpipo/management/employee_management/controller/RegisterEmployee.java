@@ -5,7 +5,7 @@ public class RegisterEmployee {
     private String firstName;
     private String lastName;
     private String email;
-    private String department;
+    private Long departmentId;
     private String salary;
 
     public RegisterEmployee() {
@@ -18,11 +18,11 @@ public class RegisterEmployee {
         this.salary = salary;
     }
 
-    public RegisterEmployee(String firstName, String lastName, String email, String department, String salary) {
+    public RegisterEmployee(String firstName, String lastName, String email, Long departmentId, String salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.department = department;
+        this.departmentId = departmentId;
         this.salary = salary;
     }
 
@@ -50,12 +50,12 @@ public class RegisterEmployee {
         this.email = email;
     }
 
-    public String getDepartment() {
-        return department;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getSalary() {
