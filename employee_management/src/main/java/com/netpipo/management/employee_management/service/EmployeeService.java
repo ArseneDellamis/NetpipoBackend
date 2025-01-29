@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepo;
+
+    public EmployeeService(EmployeeRepository employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
 
     public Employee createEmployee(Employee employee) {
         return employeeRepo.save(employee);
@@ -21,9 +24,8 @@ public class EmployeeService {
 
     public List<Employee> getAllEmployees() {
 
-        List<Employee> fetchEmployees = new ArrayList<>();
-        fetchEmployees= employeeRepo.findAll();
-        return fetchEmployees;
+        return employeeRepo.findAll();
+
     }
 
     public Optional<Employee> getEmployeeById(long id) {
