@@ -1,14 +1,13 @@
-package com.netpipo.management.employee_management.controller;
+package com.netpipo.management.employee_management.EmployeOps.controller;
 
-import com.netpipo.management.employee_management.daoRepository.DepartmentRepository;
-import com.netpipo.management.employee_management.manage.Department;
-import com.netpipo.management.employee_management.manage.Employee;
-import com.netpipo.management.employee_management.service.DepartmentService;
-import com.netpipo.management.employee_management.service.EmployeeService;
+import com.netpipo.management.employee_management.EmployeOps.daoRepository.DepartmentRepository;
+import com.netpipo.management.employee_management.EmployeOps.manage.Department;
+import com.netpipo.management.employee_management.EmployeOps.manage.Employee;
+import com.netpipo.management.employee_management.EmployeOps.service.DepartmentService;
+import com.netpipo.management.employee_management.EmployeOps.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

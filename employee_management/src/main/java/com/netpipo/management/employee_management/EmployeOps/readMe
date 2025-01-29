@@ -1,0 +1,7 @@
+Employee Ops(operations) contains operations one employee via endpoints
+-create employee
+-find employee
+-find all employee
+-update employee
+-find employees by department
+-find employees by name like ?
