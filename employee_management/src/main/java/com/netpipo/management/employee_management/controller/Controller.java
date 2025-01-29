@@ -1,5 +1,6 @@
 package com.netpipo.management.employee_management.controller;
 
+import com.netpipo.management.employee_management.daoRepository.DepartmentRepository;
 import com.netpipo.management.employee_management.manage.Department;
 import com.netpipo.management.employee_management.manage.Employee;
 import com.netpipo.management.employee_management.service.DepartmentService;
@@ -17,11 +18,15 @@ public class Controller {
 
     private final EmployeeService employeeService;
     private final DepartmentService departmentService;
+    private final DepartmentRepository departmentRepo;
 
     @Autowired
-    public Controller(EmployeeService employeeService, DepartmentService departmentService) {
+    public Controller(EmployeeService employeeService,
+                      DepartmentService departmentService,
+                      DepartmentRepository departmentRepo) {
         this.employeeService = employeeService;
         this.departmentService = departmentService;
+        this.departmentRepo = departmentRepo;
     }
 
     @GetMapping("/employees/all")
@@ -86,14 +91,17 @@ public class Controller {
 
 
     @PutMapping("/employees/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable long id, @RequestBody Employee updatedEmployee) {
+    public ResponseEntity<?> updateEmployee(@PathVariable long id,
+                                            @RequestBody RegisterEmployee updatedEmployeeDto) {
         try {
+            Employee updatedEmployee = mapRegisterEmployeeToEntity(updatedEmployeeDto);
             Employee updated = employeeService.updateEmployee(id, updatedEmployee);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
 
 
     @DeleteMapping("/employees/{id}")
@@ -138,7 +146,9 @@ public class Controller {
         employee.setFirstName(registerEmployee.getFirstName());
         employee.setLastName(registerEmployee.getLastName());
         employee.setEmail(registerEmployee.getEmail());
-        employee.setDepartment(departmentService.getDepartmentByName(registerEmployee.getDepartment()));
+        Department department = departmentRepo.findById(registerEmployee.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department Not Found"));
+        employee.setDepartment(department);
         employee.setSalary(registerEmployee.getSalary());
         return employee;
     }

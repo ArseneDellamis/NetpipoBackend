@@ -59,10 +59,14 @@ public class EmployeeService {
         Employee employeeToUpdate = employeeRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee Not Found"));
 
+        // Check if the provided department exists
+        Department updatedDepartment = departmentRepo.findById(updatedEmployee.getDepartment().getId())
+                .orElseThrow(() -> new RuntimeException("Department Not Found"));
+
         employeeToUpdate.setFirstName(updatedEmployee.getFirstName());
         employeeToUpdate.setLastName(updatedEmployee.getLastName());
         employeeToUpdate.setEmail(updatedEmployee.getEmail());
-        employeeToUpdate.setDepartment(updatedEmployee.getDepartment());
+        employeeToUpdate.setDepartment(updatedDepartment);
         employeeToUpdate.setSalary(updatedEmployee.getSalary());
 
         return employeeRepo.save(employeeToUpdate);
