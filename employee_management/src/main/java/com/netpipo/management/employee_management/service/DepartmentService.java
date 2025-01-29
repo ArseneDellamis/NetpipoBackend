@@ -3,6 +3,7 @@ package com.netpipo.management.employee_management.service;
 import com.netpipo.management.employee_management.daoRepository.DepartmentRepository;
 import com.netpipo.management.employee_management.manage.Department;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class DepartmentService {
 
     private final DepartmentRepository departmentRepo;
 
+    @Autowired
     public DepartmentService(DepartmentRepository departmentRepo) {
         this.departmentRepo = departmentRepo;
     }
