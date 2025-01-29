@@ -5,6 +5,8 @@ import com.netpipo.management.employee_management.manage.Department;
 import com.netpipo.management.employee_management.manage.Employee;
 import com.netpipo.management.employee_management.service.DepartmentService;
 import com.netpipo.management.employee_management.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/netpipo/api")
+@Tag(name = " Employee API",
+description = "APIs for managing employees")
 public class Controller {
 
     private final EmployeeService employeeService;
@@ -30,6 +34,7 @@ public class Controller {
     }
 
     @GetMapping("/employees/all")
+    @Operation(summary = "Get all employees", description = "retrieves a list of all employees")
     public ResponseEntity<?> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
 
@@ -40,6 +45,7 @@ public class Controller {
     }
 
     @PostMapping("/employees/add")
+    @Operation(summary = "add employee", description = "create/register a new employee in the system")
     public ResponseEntity<Message> createEmployee(@RequestBody RegisterEmployee registerEmployee) {
         Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee);
         employeeService.createEmployee(createdEmployee);
@@ -50,6 +56,7 @@ public class Controller {
 
 
     @GetMapping("/employees/{id}")
+    @Operation(summary = "Get employee by id", description = "retrieves an employee using his/her id")
     public ResponseEntity<Employee> getEmployeeById(
             @PathVariable long id
     ) {
@@ -60,6 +67,7 @@ public class Controller {
     }
 
     @GetMapping("/employees/search")
+    @Operation(summary = "search by name", description = "retrieves a list of all employees who name like key word entered")
     public ResponseEntity<?> searchEmployees(@RequestParam String name){
 //        User the service method to search
         List<Employee> employees =
@@ -75,6 +83,7 @@ public class Controller {
     }
 
     @GetMapping("/employees/department/{name}")
+    @Operation(summary = "Get employees in a department", description = "retrieves a list of all employees in a given department")
     public ResponseEntity<?> getEmployeesByDepartment(@PathVariable String name) {
       try {
           List<Employee> employees = employeeService
@@ -91,6 +100,7 @@ public class Controller {
 
 
     @PutMapping("/employees/{id}")
+    @Operation(summary = "update employee", description = "update the existing employee using his/her id")
     public ResponseEntity<?> updateEmployee(@PathVariable long id,
                                             @RequestBody RegisterEmployee updatedEmployeeDto) {
         try {
@@ -105,6 +115,7 @@ public class Controller {
 
 
     @DeleteMapping("/employees/{id}")
+    @Operation(summary = "deleting employee", description = "removing an employees from database using his/her id")
     public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
         try {
             employeeService.deleteEmployee(id);
