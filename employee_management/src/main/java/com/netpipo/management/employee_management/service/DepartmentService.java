@@ -9,14 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepo;
 
-    @Autowired
-    public DepartmentService(DepartmentRepository departmentRepo) {
-        this.departmentRepo = departmentRepo;
-    }
 
     public Department createDepartment(Department department) {
 

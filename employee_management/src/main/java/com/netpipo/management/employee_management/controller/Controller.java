@@ -7,6 +7,7 @@ import com.netpipo.management.employee_management.service.DepartmentService;
 import com.netpipo.management.employee_management.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/netpipo/api")
 @Tag(name = " Employee API",
 description = "APIs for managing employees")
@@ -24,14 +26,6 @@ public class Controller {
     private final DepartmentService departmentService;
     private final DepartmentRepository departmentRepo;
 
-    @Autowired
-    public Controller(EmployeeService employeeService,
-                      DepartmentService departmentService,
-                      DepartmentRepository departmentRepo) {
-        this.employeeService = employeeService;
-        this.departmentService = departmentService;
-        this.departmentRepo = departmentRepo;
-    }
 
     @GetMapping("/employees/all")
     @Operation(summary = "Get all employees", description = "retrieves a list of all employees")

@@ -11,16 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepo;
     private final DepartmentRepository departmentRepo;
 
-    @Autowired
-    public EmployeeService(EmployeeRepository employeeRepo, DepartmentRepository departmentRepo) {
-        this.employeeRepo = employeeRepo;
-        this.departmentRepo = departmentRepo;
-    }
 
     public Employee createEmployee(Employee employee) {
         return employeeRepo.save(employee);
