@@ -32,6 +32,13 @@ public class DepartmentService {
         return departmentRepo.findByNameContainingIgnoreCase(name);
     }
 
+    public Department getDepartmentByName(String name) {
+
+        return departmentRepo.findByName(name).orElseThrow(
+                ()-> new RuntimeException("Department not found")
+        );
+    }
+
     public Department updateDepartment(
             long id,
             Department updatedDepartment
