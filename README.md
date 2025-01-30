@@ -24,6 +24,7 @@ Netpipo backend application contains Api operations for registration, retrieving
 - after installation of DBMS upload the sqlScripts:
 1. database
 2. tables
+3. insert USER and ADMIN in role table.
 - after installation of java ide navigate to the extracted file then open with the ide
 
 ## application Structure
