@@ -16,7 +16,7 @@ import static com.netpipo.management.employee_management.EmployeeOps.controller.
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/netpipo/api//employees")
+@RequestMapping("/netpipo/api/employees")
 @Tag(name = " Employee API", description = "APIs for managing employees")
 public class Controller {
 
