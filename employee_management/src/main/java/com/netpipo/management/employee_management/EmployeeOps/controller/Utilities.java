@@ -1,7 +1,5 @@
 package com.netpipo.management.employee_management.EmployeeOps.controller;
 
-import com.netpipo.management.employee_management.EmployeeOps.daoRepository.DepartmentRepository;
-import com.netpipo.management.employee_management.EmployeeOps.manage.Department;
 import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +12,11 @@ public class Utilities {
     }
 
     // Utility method to map RegisterEmployee DTO to Employee entity
-    public static Employee mapRegisterEmployeeToEntity(RegisterEmployee registerEmployee, DepartmentRepository departmentRepo) {
+    public static Employee mapRegisterEmployeeToEntity(RegisterEmployee registerEmployee) {
         Employee employee = new Employee();
-        employee.setFirstName(registerEmployee.getFirstName());
-        employee.setLastName(registerEmployee.getLastName());
+        employee.setName(registerEmployee.getName());
         employee.setEmail(registerEmployee.getEmail());
-        Department department = departmentRepo.findById(registerEmployee.getDepartmentId())
-                .orElseThrow(() -> new RuntimeException("Department Not Found"));
-        employee.setDepartment(department);
+        employee.setPosition(registerEmployee.getPosition());
         employee.setSalary(registerEmployee.getSalary());
         return employee;
     }

@@ -1,8 +1,6 @@
 package com.netpipo.management.employee_management.EmployeeOps.controller;
 
-import com.netpipo.management.employee_management.EmployeeOps.daoRepository.DepartmentRepository;
 import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
-import com.netpipo.management.employee_management.EmployeeOps.service.DepartmentService;
 import com.netpipo.management.employee_management.EmployeeOps.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,11 +21,9 @@ import static com.netpipo.management.employee_management.EmployeeOps.controller.
 public class Controller {
 
     private final EmployeeService employeeService;
-    private final DepartmentService departmentService;
-    private final DepartmentRepository departmentRepo;
 
 
-    @GetMapping("/employees/all")
+    @GetMapping("/employees/")
     @Operation(summary = "Get all employees", description = "retrieves a list of all employees")
     public ResponseEntity<?> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -38,13 +34,13 @@ public class Controller {
         return ResponseEntity.ok(employees);
     }
 
-    @PostMapping("/employees/add")
+    @PostMapping("/employees/")
     @Operation(summary = "add employee", description = "create/register a new employee in the system")
     public ResponseEntity<Message> createEmployee(@RequestBody RegisterEmployee registerEmployee) {
-        Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee, departmentRepo);
+        Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee);
         employeeService.createEmployee(createdEmployee);
 
-        String successMessage = "Employee " + createdEmployee.getFirstName() + " " + createdEmployee.getLastName() + " created successfully";
+        String successMessage = "Employee " + createdEmployee.getName() + " created successfully";
         return createResponse(HttpStatus.CREATED, successMessage);
     }
 
@@ -52,7 +48,7 @@ public class Controller {
     @GetMapping("/employees/{id}")
     @Operation(summary = "Get employee by id", description = "retrieves an employee using his/her id")
     public ResponseEntity<Employee> getEmployeeById(
-            @PathVariable long id
+            @PathVariable Long id
     ) {
         Employee employee = employeeService.getEmployeeById(id)
                 .orElseThrow(()-> new RuntimeException("Employee Not Found "));
@@ -60,45 +56,13 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.FOUND).body(employee);
     }
 
-    @GetMapping("/employees/search")
-    @Operation(summary = "search by name", description = "retrieves a list of all employees who name like key word entered")
-    public ResponseEntity<?> searchEmployees(@RequestParam String name){
-//        User the service method to search
-        List<Employee> employees =
-                employeeService.searchEmployeesByName(name);
-
-        if (employees.isEmpty()) {
-            return createResponse(
-                    HttpStatus.NO_CONTENT,
-                    "No Employees Found"
-            );
-        }
-        return ResponseEntity.status(HttpStatus.FOUND).body(employees);
-    }
-
-    @GetMapping("/employees/department/{name}")
-    @Operation(summary = "Get employees in a department", description = "retrieves a list of all employees in a given department")
-    public ResponseEntity<?> getEmployeesByDepartment(@PathVariable String name) {
-      try {
-          List<Employee> employees = employeeService
-                  .getEmployeesByDepartment(name);
-          if (employees.isEmpty()) {
-              return createResponse(HttpStatus.NO_CONTENT, "No employees found in this department.");
-          }
-          return ResponseEntity.ok(employees);
-      } catch (RuntimeException e) {
-          return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
-      }
-    }
-
-
 
     @PutMapping("/employees/{id}")
     @Operation(summary = "update employee", description = "update the existing employee using his/her id")
-    public ResponseEntity<?> updateEmployee(@PathVariable long id,
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id,
                                             @RequestBody RegisterEmployee updatedEmployeeDto) {
         try {
-            Employee updatedEmployee = mapRegisterEmployeeToEntity(updatedEmployeeDto, departmentRepo);
+            Employee updatedEmployee = mapRegisterEmployeeToEntity(updatedEmployeeDto);
             Employee updated = employeeService.updateEmployee(id, updatedEmployee);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
@@ -110,7 +74,7 @@ public class Controller {
 
     @DeleteMapping("/employees/{id}")
     @Operation(summary = "deleting employee", description = "removing an employees from database using his/her id")
-    public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         try {
             employeeService.deleteEmployee(id);
             return createResponse(HttpStatus.NO_CONTENT, "Employee deleted successfully.");
