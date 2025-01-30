@@ -5,6 +5,7 @@ import com.netpipo.management.employee_management.EmployeeOps.daoRepository.Empl
 import com.netpipo.management.employee_management.EmployeeOps.manage.Department;
 import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("Testing employee service layer")
 public class EmployeeServiceTest {
 
     @Mock
@@ -51,7 +53,8 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testCreateEmployee() {
+    @DisplayName("test Create employee")
+    void testCreateEmployee_whenValidEmployee_ShouldReturnSavedEmployee() {
         when(employeeRepo.save(any(Employee.class))).thenReturn(employee);
         Employee created = employeeService.createEmployee(employee);
         assertNotNull(created);
@@ -59,7 +62,8 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testGetAllEmployees() {
+    @DisplayName("test retrieve all employees")
+    void testGetAllEmployees_whenEmployeesExist_ShouldReturnListOfEmployees() {
         when(employeeRepo.findAll()).thenReturn(Collections.singletonList(employee));
         List<Employee> employees = employeeService.getAllEmployees();
         assertFalse(employees.isEmpty());
@@ -67,7 +71,8 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testGetEmployeeById() {
+    @DisplayName("test get employee info by id")
+    void testGetEmployeeById_whenEmployeeExists_ShouldReturnEmployee() {
         when(employeeRepo.findById(Long.valueOf(1L))).thenReturn(Optional.of(employee));
         Optional<Employee> found = employeeService.getEmployeeById(1L);
         assertTrue(found.isPresent());
@@ -75,7 +80,8 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testUpdateEmployee() {
+    @DisplayName("test update Employee")
+    void testUpdateEmployee_whenEmployeeExists_ShouldReturnUpdatedEmployee() {
         Employee updatedEmployee = Employee.builder()
                 .firstName("Arsene")
                 .lastName("nyirinkwaya")
@@ -96,7 +102,8 @@ public class EmployeeServiceTest {
 
 
     @Test
-    void testDeleteEmployee() {
+    @DisplayName("test Delete Employee")
+    void testDeleteEmployee_whenEmployeeExists_ShouldDeleteSuccessfully() {
         when(employeeRepo.findById(Long.valueOf(1L))).thenReturn(Optional.of(employee));
         doNothing().when(employeeRepo).delete(any(Employee.class));
         assertDoesNotThrow(() -> employeeService.deleteEmployee(1L));
