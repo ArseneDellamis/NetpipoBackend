@@ -61,22 +61,22 @@ Authenticated useremail and password to use
 ### Dependencies
 project dependencies available for the projects
 
-| dependency        | usage                                         |
-|-------------------|-----------------------------------------------|
-| spring data jpa   | relational database access                    |
-| spring web        | creation of RestAPis                          |
-| postgres driver   | postgres interraction                         |
+| dependency        | usage                                        |
+|-------------------|----------------------------------------------|
+| spring data jpa   | relational database access                   |
+| spring web        | creation of RestAPis                         |
+| postgres driver   | postgres interaction                         |
 | lombok            | getter,setter and constructor auto generation |
-| spring validation | user validation                               |
-| spring security   | user Authentication & authorization           |
-| Junit 5           | junit test                                    |
-| Mockito           | mock object for testing spring apps           |
-| json web token    | token creation and generation                 |
+| spring validation | user validation                              |
+| spring security   | user Authentication & authorization          |
+| Junit 5           | junit test                                   |
+| Mockito           | mock object for testing spring apps          |
+| json web token    | token creation and generation                |
 
 
 ## Database configuration
-- navigate to the DMBS(postgresql, mysql workbench, etc...) then upload the sql scripts
-1. database first
+- navigate to postgres(pgadmin/valentina studio)then upload the sql scripts
+1. create database first
 2. tables
 
 | Database                  | table    |
@@ -107,14 +107,11 @@ project dependencies available for the projects
 the application provides a list of endpoints for performing different task and are divided in 3 parts
 1. Permitted RestApi
 2. authenticated RestApi
+3. HTTP methods access levels
 
 
 ### Permitted RestApi
 these are Apis that are accessible by any user
-|description | RestApi|
-|------------|--------|
-| | |
-| |  |
 
 | description                | RestApi                                                    |
 |----------------------------|------------------------------------------------------------|
@@ -122,8 +119,8 @@ these are Apis that are accessible by any user
 | user authentication        | http://localhost:8080/netpio/api/auth/authenticate              |
 
 ### authenticated RestApi
-these are only for authorized users to perform action like create, update, read, delete
-data of our blog application
+these are only for authenticated and authorized users to perform action like create, update, read, delete
+data of our employees
 
 | description                | RestApi                                                    |
 |----------------------------|------------------------------------------------------------|
@@ -133,3 +130,11 @@ data of our blog application
 | delete an employee         | http://localhost:8080/netpipo/api/employees/api/posts/{id} |
 | get employee details by id | http://localhost:8080/netpipo/api/employees/{id}           |
 
+
+### HTTP methods access levels
+
+like put, post, get, delete have limited accessibility based on ROLES,
+in other words "WHO CAN and WHO CAN'T"
+
+    - PUT,POST,DELETE methods are reserved for any user with role of ADMIN
+    - GET method is access by anyone with any role
