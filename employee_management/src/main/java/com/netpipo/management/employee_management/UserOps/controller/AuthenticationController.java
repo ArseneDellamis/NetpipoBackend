@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("netpipo/api/auth")
 @RequiredArgsConstructor
 @Tag(name = "registration & authenticate API", description = "API for user registration & authenticate, authorization usig Jjwt Token ")
 // exposed RestfulApi for login and Register

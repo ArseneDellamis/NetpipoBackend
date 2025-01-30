@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,7 +31,7 @@ all web authorization,validation and authentication mechanism
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf( csrf -> csrf.disable()) //csrf disable to avoid server vulnerability to attacks
+                .csrf(AbstractHttpConfigurer::disable) //csrf disable to avoid server vulnerability to attacks
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/api/auth/**")//allowing access to all http://localhost:8080/api/auth/** either register or login

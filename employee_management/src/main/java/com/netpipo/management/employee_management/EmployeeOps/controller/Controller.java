@@ -16,14 +16,14 @@ import static com.netpipo.management.employee_management.EmployeeOps.controller.
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/netpipo/api")
+@RequestMapping("/netpipo/api//employees")
 @Tag(name = " Employee API", description = "APIs for managing employees")
 public class Controller {
 
     private final EmployeeService employeeService;
 
 
-    @GetMapping("/employees/")
+    @GetMapping("/")
     @Operation(summary = "Get all employees", description = "retrieves a list of all employees")
     public ResponseEntity<?> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -34,7 +34,7 @@ public class Controller {
         return ResponseEntity.ok(employees);
     }
 
-    @PostMapping("/employees/")
+    @PostMapping("/")
     @Operation(summary = "add employee", description = "create/register a new employee in the system")
     public ResponseEntity<Message> createEmployee(@RequestBody RegisterEmployee registerEmployee) {
         Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee);
@@ -45,7 +45,7 @@ public class Controller {
     }
 
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Get employee by id", description = "retrieves an employee using his/her id")
     public ResponseEntity<Employee> getEmployeeById(
             @PathVariable Long id
@@ -57,7 +57,7 @@ public class Controller {
     }
 
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "update employee", description = "update the existing employee using his/her id")
     public ResponseEntity<?> updateEmployee(@PathVariable Long id,
                                             @RequestBody RegisterEmployee updatedEmployeeDto) {
@@ -72,7 +72,7 @@ public class Controller {
 
 
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "deleting employee", description = "removing an employees from database using his/her id")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         try {
