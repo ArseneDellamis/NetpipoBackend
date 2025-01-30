@@ -15,12 +15,8 @@ Netpipo backend application contains Api operations for registration, retrieving
     url: https://github.com/ArseneDellamis/NetpipoBackend or clone https://github.com/ArseneDellamis/NetpipoBackend.git
     - extract the file
     - the file contains:
-        1. QT_Global_Blog
-        2. sql_script
-### sample data
-Authenticated useremail and password to use
-1. _email_: **user1@gmail.com**
-2. _password_: **user1**
+        1. employee_management
+        2. netpipo_employee_database_v001(sql script)
 
 ### set IDE environment
 - download and install any java ide(intellij, Eclipse, etc..)
