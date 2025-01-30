@@ -1,9 +1,9 @@
-package com.netpipo.management.employee_management.EmployeOps.service;
+package com.netpipo.management.employee_management.EmployeeOps.service;
 
-import com.netpipo.management.employee_management.EmployeOps.daoRepository.DepartmentRepository;
-import com.netpipo.management.employee_management.EmployeOps.daoRepository.EmployeeRepository;
-import com.netpipo.management.employee_management.EmployeOps.manage.Department;
-import com.netpipo.management.employee_management.EmployeOps.manage.Employee;
+import com.netpipo.management.employee_management.EmployeeOps.daoRepository.DepartmentRepository;
+import com.netpipo.management.employee_management.EmployeeOps.daoRepository.EmployeeRepository;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Department;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

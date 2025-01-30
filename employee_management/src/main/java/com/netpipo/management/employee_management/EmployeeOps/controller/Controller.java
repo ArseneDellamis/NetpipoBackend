@@ -1,10 +1,9 @@
-package com.netpipo.management.employee_management.EmployeOps.controller;
+package com.netpipo.management.employee_management.EmployeeOps.controller;
 
-import com.netpipo.management.employee_management.EmployeOps.daoRepository.DepartmentRepository;
-import com.netpipo.management.employee_management.EmployeOps.manage.Department;
-import com.netpipo.management.employee_management.EmployeOps.manage.Employee;
-import com.netpipo.management.employee_management.EmployeOps.service.DepartmentService;
-import com.netpipo.management.employee_management.EmployeOps.service.EmployeeService;
+import com.netpipo.management.employee_management.EmployeeOps.daoRepository.DepartmentRepository;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
+import com.netpipo.management.employee_management.EmployeeOps.service.DepartmentService;
+import com.netpipo.management.employee_management.EmployeeOps.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.netpipo.management.employee_management.EmployeOps.controller.Utilities.createResponse;
-import static com.netpipo.management.employee_management.EmployeOps.controller.Utilities.mapRegisterEmployeeToEntity;
+import static com.netpipo.management.employee_management.EmployeeOps.controller.Utilities.createResponse;
+import static com.netpipo.management.employee_management.EmployeeOps.controller.Utilities.mapRegisterEmployeeToEntity;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.netpipo.management.employee_management.EmployeOps.manage;
+package com.netpipo.management.employee_management.EmployeeOps.manage;
 
 
 import jakarta.persistence.*;

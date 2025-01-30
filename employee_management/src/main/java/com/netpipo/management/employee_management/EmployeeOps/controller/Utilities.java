@@ -1,8 +1,8 @@
-package com.netpipo.management.employee_management.EmployeOps.controller;
+package com.netpipo.management.employee_management.EmployeeOps.controller;
 
-import com.netpipo.management.employee_management.EmployeOps.daoRepository.DepartmentRepository;
-import com.netpipo.management.employee_management.EmployeOps.manage.Department;
-import com.netpipo.management.employee_management.EmployeOps.manage.Employee;
+import com.netpipo.management.employee_management.EmployeeOps.daoRepository.DepartmentRepository;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Department;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

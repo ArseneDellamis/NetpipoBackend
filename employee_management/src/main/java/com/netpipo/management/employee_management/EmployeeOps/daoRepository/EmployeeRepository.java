@@ -1,7 +1,7 @@
-package com.netpipo.management.employee_management.EmployeOps.daoRepository;
+package com.netpipo.management.employee_management.EmployeeOps.daoRepository;
 
-import com.netpipo.management.employee_management.EmployeOps.manage.Department;
-import com.netpipo.management.employee_management.EmployeOps.manage.Employee;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Department;
+import com.netpipo.management.employee_management.EmployeeOps.manage.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

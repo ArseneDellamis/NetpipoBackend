@@ -1,4 +1,4 @@
-package com.netpipo.management.employee_management.EmployeOps.controller;
+package com.netpipo.management.employee_management.EmployeeOps.controller;
 
 public class RegisterEmployee {
 

@@ -1,4 +1,4 @@
-package com.netpipo.management.employee_management.EmployeOps.controller;
+package com.netpipo.management.employee_management.EmployeeOps.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
