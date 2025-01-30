@@ -34,13 +34,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @OneToOne
-    @JoinColumn(name="role_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id", unique = false)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getName()));
+        return role != null ? List.of(new SimpleGrantedAuthority(role.getName())) : List.of();
+
     }
 
     @Override
