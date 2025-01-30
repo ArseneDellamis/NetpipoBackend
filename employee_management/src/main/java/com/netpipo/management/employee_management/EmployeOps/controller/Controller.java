@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.netpipo.management.employee_management.EmployeOps.controller.Utilities.createResponse;
+import static com.netpipo.management.employee_management.EmployeOps.controller.Utilities.mapRegisterEmployeeToEntity;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/netpipo/api")
@@ -39,7 +42,7 @@ public class Controller {
     @PostMapping("/employees/add")
     @Operation(summary = "add employee", description = "create/register a new employee in the system")
     public ResponseEntity<Message> createEmployee(@RequestBody RegisterEmployee registerEmployee) {
-        Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee);
+        Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee, departmentRepo);
         employeeService.createEmployee(createdEmployee);
 
         String successMessage = "Employee " + createdEmployee.getFirstName() + " " + createdEmployee.getLastName() + " created successfully";
@@ -96,7 +99,7 @@ public class Controller {
     public ResponseEntity<?> updateEmployee(@PathVariable long id,
                                             @RequestBody RegisterEmployee updatedEmployeeDto) {
         try {
-            Employee updatedEmployee = mapRegisterEmployeeToEntity(updatedEmployeeDto);
+            Employee updatedEmployee = mapRegisterEmployeeToEntity(updatedEmployeeDto, departmentRepo);
             Employee updated = employeeService.updateEmployee(id, updatedEmployee);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
@@ -137,23 +140,23 @@ public class Controller {
 
 
 
-    // Utility method to create a Message response
-    private ResponseEntity<Message> createResponse(HttpStatus status, String messageText) {
-        Message message = new Message(status, messageText);
-        return ResponseEntity.status(status).body(message);
-    }
-
-    // Utility method to map RegisterEmployee DTO to Employee entity
-    private Employee mapRegisterEmployeeToEntity(RegisterEmployee registerEmployee) {
-        Employee employee = new Employee();
-        employee.setFirstName(registerEmployee.getFirstName());
-        employee.setLastName(registerEmployee.getLastName());
-        employee.setEmail(registerEmployee.getEmail());
-        Department department = departmentRepo.findById(registerEmployee.getDepartmentId())
-                .orElseThrow(() -> new RuntimeException("Department Not Found"));
-        employee.setDepartment(department);
-        employee.setSalary(registerEmployee.getSalary());
-        return employee;
-    }
+//    // Utility method to create a Message response
+//    private ResponseEntity<Message> createResponse(HttpStatus status, String messageText) {
+//        Message message = new Message(status, messageText);
+//        return ResponseEntity.status(status).body(message);
+//    }
+//
+//    // Utility method to map RegisterEmployee DTO to Employee entity
+//    private Employee mapRegisterEmployeeToEntity(RegisterEmployee registerEmployee) {
+//        Employee employee = new Employee();
+//        employee.setFirstName(registerEmployee.getFirstName());
+//        employee.setLastName(registerEmployee.getLastName());
+//        employee.setEmail(registerEmployee.getEmail());
+//        Department department = departmentRepo.findById(registerEmployee.getDepartmentId())
+//                .orElseThrow(() -> new RuntimeException("Department Not Found"));
+//        employee.setDepartment(department);
+//        employee.setSalary(registerEmployee.getSalary());
+//        return employee;
+//    }
 }
 
