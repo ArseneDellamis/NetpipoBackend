@@ -17,8 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/netpipo/api")
-@Tag(name = " Employee API",
-description = "APIs for managing employees")
+@Tag(name = " Employee API", description = "APIs for managing employees")
 public class Controller {
 
     private final EmployeeService employeeService;
