@@ -50,8 +50,7 @@ public class AuthService {
 //        now here we are creating a user and build the user using the
 //        requests from frontend or postman
         var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(getRole.get())
