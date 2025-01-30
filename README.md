@@ -22,7 +22,7 @@ Netpipo backend application contains Api operations for registration, retrieving
 - download and install any java ide(intellij, Eclipse, etc..)
 - use postgresSQL for database connection
 - after installation of DBMS upload the sqlScripts:
-1. netpipo_employee_database_v001(sql script)
+    1. netpipo_employee_database_v001(sql script)
 - after installation of java ide navigate to the extracted file then open with the ide
 
 ## application Structure
