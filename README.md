@@ -102,7 +102,7 @@ project dependencies available for the projects
       spring.datasource.password=your_password
       spring.datasource.driver-class-name=org.postgresql.Driver.
 
-### *_N.B_* : if database dump are not being uploaded successfully just create a database under the name netpipo_employee_database then run the code. sprinboot will create tables for you
+### *_N.B_* : if database dump are not being uploaded successfully just create a database under the name netpipo_employee_database then run the code in your IDE. spring boot will create tables for you
 
 
 ## RestApi and Endpoint
