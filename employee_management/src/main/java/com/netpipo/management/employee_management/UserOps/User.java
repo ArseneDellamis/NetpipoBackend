@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", unique = false)
+    @JoinColumn(name="role_id", referencedColumnName = "id")
     private Role role;
 
     @Override
