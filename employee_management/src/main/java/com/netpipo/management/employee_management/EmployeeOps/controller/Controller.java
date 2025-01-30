@@ -17,14 +17,12 @@ import static com.netpipo.management.employee_management.EmployeeOps.controller.
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/netpipo/api/employees")
-@Tag(name = " Employee API", description = "APIs for managing employees")
 public class Controller {
 
     private final EmployeeService employeeService;
 
-
+    //    get all employee url: http://localhost:8080/netpipo/api/employees/
     @GetMapping("/")
-    @Operation(summary = "Get all employees", description = "retrieves a list of all employees")
     public ResponseEntity<?> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
 
@@ -34,8 +32,8 @@ public class Controller {
         return ResponseEntity.ok(employees);
     }
 
+    //    create an employee url: http://localhost:8080/netpipo/api/employees/
     @PostMapping("/")
-    @Operation(summary = "add employee", description = "create/register a new employee in the system")
     public ResponseEntity<Message> createEmployee(@RequestBody RegisterEmployee registerEmployee) {
         Employee createdEmployee = mapRegisterEmployeeToEntity(registerEmployee);
         employeeService.createEmployee(createdEmployee);
@@ -44,9 +42,8 @@ public class Controller {
         return createResponse(HttpStatus.CREATED, successMessage);
     }
 
-
+    //    get employee details by id url: http://localhost:8080/netpipo/api/employees/{id}
     @GetMapping("/{id}")
-    @Operation(summary = "Get employee by id", description = "retrieves an employee using his/her id")
     public ResponseEntity<Employee> getEmployeeById(
             @PathVariable Long id
     ) {
@@ -57,8 +54,8 @@ public class Controller {
     }
 
 
+    //    update an employee url: http://localhost:8080/netpipo/api/employees/{id}
     @PutMapping("/{id}")
-    @Operation(summary = "update employee", description = "update the existing employee using his/her id")
     public ResponseEntity<?> updateEmployee(@PathVariable Long id,
                                             @RequestBody RegisterEmployee updatedEmployeeDto) {
         try {
@@ -71,9 +68,8 @@ public class Controller {
     }
 
 
-
+    //    delete an employee url: http://localhost:8080/netpipo/api/employees/{id}
     @DeleteMapping("/{id}")
-    @Operation(summary = "deleting employee", description = "removing an employees from database using his/her id")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         try {
             employeeService.deleteEmployee(id);
@@ -83,43 +79,5 @@ public class Controller {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    // Utility method to create a Message response
-//    private ResponseEntity<Message> createResponse(HttpStatus status, String messageText) {
-//        Message message = new Message(status, messageText);
-//        return ResponseEntity.status(status).body(message);
-//    }
-//
-//    // Utility method to map RegisterEmployee DTO to Employee entity
-//    private Employee mapRegisterEmployeeToEntity(RegisterEmployee registerEmployee) {
-//        Employee employee = new Employee();
-//        employee.setFirstName(registerEmployee.getFirstName());
-//        employee.setLastName(registerEmployee.getLastName());
-//        employee.setEmail(registerEmployee.getEmail());
-//        Department department = departmentRepo.findById(registerEmployee.getDepartmentId())
-//                .orElseThrow(() -> new RuntimeException("Department Not Found"));
-//        employee.setDepartment(department);
-//        employee.setSalary(registerEmployee.getSalary());
-//        return employee;
-//    }
 }
 

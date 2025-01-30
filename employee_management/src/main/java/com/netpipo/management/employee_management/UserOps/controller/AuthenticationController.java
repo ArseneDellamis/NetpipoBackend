@@ -17,14 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("netpipo/api/auth")
 @RequiredArgsConstructor
-@Tag(name = "registration & authenticate API", description = "API for user registration & authenticate, authorization usig Jjwt Token ")
 // exposed RestfulApi for login and Register
 public class AuthenticationController {
     private final AuthService service;
 
-//    registering a new user http://localhost:8080/api/auth/register
+//    registering a new user http://localhost:8080/netpipo/api/auth/register
     @PostMapping("/register")
-    @Operation(summary = "register user", description = "register user for authentication and authorization purposes")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
@@ -32,9 +30,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
-    //    registering a new user http://localhost:8080/api/auth/authenticate
+    //    registering a new user http://localhost:8080/netpipo/api/auth/authenticate
     @PostMapping("/authenticate")
-    @Operation(summary = "authenticate the user", description = "login the authenticated user after registration")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
