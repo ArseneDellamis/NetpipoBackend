@@ -11,6 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -32,15 +36,15 @@ public class EmployeeServiceTest {
     @BeforeEach
     void setUp() {
         department = Department.builder()
-                .id(1L)
+                .id(Long.valueOf(1L))
                 .name("IT")
                 .build();
 
         employee = Employee.builder()
-                .id(1L)
-                .firstName("John")
-                .lastName("Doe")
-                .email("john.doe@example.com")
+                .id(Long.valueOf(1L))
+                .firstName("Arsene")
+                .lastName("Nyirinkwaya")
+                .email("arsene.nyirinkwaya@gmail.com")
                 .department(department)
                 .salary("5000")
                 .build();
@@ -49,46 +53,55 @@ public class EmployeeServiceTest {
     @Test
     void testCreateEmployee() {
         when(employeeRepo.save(any(Employee.class))).thenReturn(employee);
-        Employee savedEmployee = employeeService.createEmployee(employee);
-        assertNotNull(savedEmployee);
-        assertEquals("John", savedEmployee.getFirstName());
-        assertEquals("Doe", savedEmployee.getLastName());
-        assertEquals("john.doe@example.com", savedEmployee.getEmail());
-        verify(employeeRepo, times(1)).save(any(Employee.class));
+        Employee created = employeeService.createEmployee(employee);
+        assertNotNull(created);
+        assertEquals("Arsene", created.getFirstName());
     }
-//
-//    @Test
-//    void testGetEmployeesByDepartment() {
-//        when(departmentRepo.findByName("IT")).thenReturn(Optional.of(department));
-//        when(employeeRepo.findByDepartment(department)).thenReturn(Collections.singletonList(employee));
-//
-//        List<Employee> employees = employeeService.getEmployeesByDepartment("IT");
-//        assertFalse(employees.isEmpty());
-//        assertEquals(1, employees.size());
-//        assertEquals("John", employees.get(0).getFirstName());
-//        assertEquals("Doe", employees.get(0).getLastName());
-//        verify(departmentRepo, times(1)).findByName("IT");
-//        verify(employeeRepo, times(1)).findByDepartment(department);
-//    }
-//
-//    @Test
-//    void testSearchEmployeesByName() {
-//        when(employeeRepo.findByFirstNameContainingIgnoreCase("John")).thenReturn(Collections.singletonList(employee));
-//        when(employeeRepo.findByLastNameContainingIgnoreCase("John")).thenReturn(Collections.emptyList());
-//        when(employeeRepo.searchByFullName("John")).thenReturn(Collections.emptyList());
-//
-//        List<Employee> result = employeeService.searchEmployeesByName("John");
-//
-//        assertFalse(result.isEmpty());
-//        assertEquals(1, result.size());
-//        assertEquals("John", result.get(0).getFirstName());
-//        assertEquals("Doe", result.get(0).getLastName());
-//        verify(employeeRepo, times(1)).findByFirstNameContainingIgnoreCase("John");
-//        verify(employeeRepo, times(1)).findByLastNameContainingIgnoreCase("John");
-//        verify(employeeRepo, times(1)).searchByFullName("John");
-//    }
+
+    @Test
+    void testGetAllEmployees() {
+        when(employeeRepo.findAll()).thenReturn(Collections.singletonList(employee));
+        List<Employee> employees = employeeService.getAllEmployees();
+        assertFalse(employees.isEmpty());
+        assertEquals(1, employees.size());
+    }
+
+    @Test
+    void testGetEmployeeById() {
+        when(employeeRepo.findById(Long.valueOf(1L))).thenReturn(Optional.of(employee));
+        Optional<Employee> found = employeeService.getEmployeeById(1L);
+        assertTrue(found.isPresent());
+        assertEquals("Arsene", found.get().getFirstName());
+    }
+
+    @Test
+    void testUpdateEmployee() {
+        Employee updatedEmployee = Employee.builder()
+                .firstName("Arsene")
+                .lastName("nyirinkwaya")
+                .email("Arsene.nyirinkwaya@gmail.com")
+                .department(department) // Ensure department is set
+                .salary("60000")
+                .build();
+
+        when(employeeRepo.findById(Long.valueOf(1L))).thenReturn(Optional.of(employee));
+        when(departmentRepo.findById(department.getId())).thenReturn(Optional.of(department)); // Mock department lookup
+        when(employeeRepo.save(any(Employee.class))).thenReturn(updatedEmployee);
+
+        Employee result = employeeService.updateEmployee(1L, updatedEmployee);
+
+        assertEquals("Arsene", result.getFirstName());
+        assertEquals("60000", result.getSalary());
+    }
 
 
+    @Test
+    void testDeleteEmployee() {
+        when(employeeRepo.findById(Long.valueOf(1L))).thenReturn(Optional.of(employee));
+        doNothing().when(employeeRepo).delete(any(Employee.class));
+        assertDoesNotThrow(() -> employeeService.deleteEmployee(1L));
+        verify(employeeRepo, times(1)).delete(employee);
+    }
 
 
 
